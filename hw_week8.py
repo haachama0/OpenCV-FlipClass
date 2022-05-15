@@ -11,6 +11,7 @@ from PIL import Image, ImageTk
 import os
 from functools import partial
 import HW
+import HW2
 import sys
 
 class App:
@@ -34,8 +35,13 @@ class App:
         self.operation_menu.add_command(label='投影轉換', command=self.roi_file)
         self.operation_menu.add_command(label='二值化調整', command=self.threshold_file)
         self.operation_menu.add_command(label='投射轉換', command=self.perspective_file)
-        
-        
+        self.operation_menu.add_command(label='Simple Contour', command=self.simple_contour)
+        self.operation_menu.add_command(label='Find Contour', command=self.find_contour)
+        self.operation_menu.add_command(label='Convex Hull', command=self.convex_hull)
+        self.operation_menu.add_command(label='Bounding Box', command=self.bounding_box)
+        self.operation_menu.add_command(label='Basic Operations', command=self.basic_operations)
+        self.operation_menu.add_command(label='Advance Morphology', command=self.advance_morphology)
+
         # Add submenu to mainmenu 
         self.main_menu.add_cascade(label='檔案', menu=self.file_menu)
         self.main_menu.add_cascade(label='功能', menu=self.operation_menu)
@@ -77,7 +83,7 @@ class App:
         # add a video source
         self.video_source = video_source
         # open video source
-        self.vid = HW.MyVideoCapture(self.video_source)
+        '''self.vid = HW.MyVideoCapture(self.video_source)
         # create a canvas to display the video content
         self.canvas = tk.Canvas(window, width=self.vid.width, height=self.vid.height)
         self.canvas.pack()
@@ -85,7 +91,7 @@ class App:
         self.btn_snapshot = tk.Button(window, text='snapshot', width='50', command=self.snapshot)
         self.btn_snapshot.pack(anchor=tk.CENTER, expand=True)
         self.delay = 15
-        self.update()
+        self.update()'''
         # loop True
         self.window.mainloop()
       
@@ -112,8 +118,8 @@ class App:
         else:
             print(file_path)
             HW.find_path(file_path)
-    
-    
+            HW2.find_path(file_path)
+            
     
     def save_file(self):
         HW.Save()
@@ -147,7 +153,19 @@ class App:
         HW.Affine()
     def perspective_file(self):
         HW.Perspective_Transform()
-        
+    def simple_contour(self):
+        HW2.Simple_Contour()
+    def find_contour(self):
+        HW2.Find_Contour()
+    def convex_hull(self):
+        HW2.Convex_Hull()
+    def bounding_box(self):
+        HW2.Bounding_Box()
+    def basic_operations(self):
+        HW2.Basic_Operations()
+    def advance_morphology(self):
+        HW2.Advance_Morphology()
+
 App(tk.Tk(), 'OpenCv with Tkinter GUI')
 
 
